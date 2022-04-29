@@ -25,15 +25,23 @@ class AlienInvasion:
 		"""Start the main game cycle."""
 		while True:
 			# Keyboard and mouse event tracking.
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					sys.exit()
+			self._check_events()
+			self._update_screen()
+			
+	
+	def _check_events(self):
+		"""Handles keystrokes and mouse events."""
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				sys.exit()
 
-			# Fill the screen with a specific color
-			self.screen.fill(self.bg_color)
-			self.ship.blitme()
-			# Displays the last screen drawn.
-			pygame.display.flip()
+	def _update_screen(self):
+		"""Updates the images on the screen and displays a new screen."""
+		# Fill the screen with a specific color
+		self.screen.fill(self.bg_color)
+		self.ship.blitme()
+		# Displays the last screen drawn.
+		pygame.display.flip()
 
 if __name__ == '__main__':
 	ai = AlienInvasion()
