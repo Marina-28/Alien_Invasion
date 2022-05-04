@@ -1,4 +1,5 @@
 from hashlib import new
+import imp
 import sys
 
 import pygame
@@ -8,6 +9,8 @@ from settings import Settings
 from ship import Ship
 
 from bullet import Bullet
+
+from alien import Alien
 
 class AlienInvasion:
 	"""Class to control game resources and behavior."""
@@ -24,7 +27,9 @@ class AlienInvasion:
 		self.ship = Ship(self)
 
 		self.bullets = pygame.sprite.Group()
+		self.aliens = pygame.sprite.Group()
 
+		self._create_fleet()
 
 	def run_game(self):
 		"""Start the main game cycle."""
@@ -71,6 +76,7 @@ class AlienInvasion:
 		self.ship.blitme()
 		for bullet in self.bullets.sprites():
 			bullet.draw_bullet()
+		self.aliens.draw(self.screen)
 		# Displays the last screen drawn.
 		pygame.display.flip()
 	
@@ -88,6 +94,12 @@ class AlienInvasion:
 	def _update_bullets(self):
 		self.bullets.update()
 		self._remove_bullets()
+
+	def _create_fleet(self):
+		"""Creates fleet of aliens."""
+		alien = Alien(self)
+		self.aliens.add(alien)
+
 
 
 if __name__ == '__main__':
