@@ -97,6 +97,9 @@ class AlienInvasion:
 		self._remove_bullets()
 		# check for hits on aliens.
 		collision = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+		if not self.aliens:
+			self.bullets.empty()
+			self._create_fleet()
 
 	def _create_fleet(self):
 		"""Creates fleet of aliens."""
@@ -122,10 +125,39 @@ class AlienInvasion:
 		alien = Alien(self)
 		alien_width = alien.rect.width
 		alien_height = alien.rect.height
-		alien.x = 2 * alien_width * alien_number
+		alien.x = 1 + 2 * alien_width * alien_number
 		alien.rect.x = alien.x
-		alien.rect.y = 2 * alien.rect.height * row_number
+		alien.rect.y = 2 * alien_height * row_number
 		self.aliens.add(alien)
+
+	# def _create_fleet(self):
+	# 	"""Creates fleet of aliens."""
+	# 	alien = Alien(self)
+	# 	alien_width = alien.rect.width
+	# 	alien_height = alien.rect.height
+
+	# 	available_space_x = self.settings.screen_width - (2 * alien_width)
+	# 	number_aliens_x = available_space_x // (2 * alien_width)
+
+	# 	#Define number of rows.
+	# 	ship_height = self.ship.rect.height
+	# 	available_space_y = self.settings.screen_height - (3 * alien_height) - ship_height
+	# 	number_rows = available_space_y // (2 * alien_height)
+
+	# 	# Creating the first row of aliens.
+	# 	for row_number in range(number_rows):
+	# 		for alien_number in range(number_aliens_x):
+	# 			self._create_alien(alien_number, row_number)
+	
+	# def _create_alien(self, alien_number, row_number):
+	# 	"""Creates the alien and append it in row."""
+	# 	alien = Alien(self)
+	# 	alien_width = alien.rect.width
+	# 	alien_height = alien.rect.height
+	# 	alien.x = alien_width + 2 * alien_width * alien_number
+	# 	alien.rect.x = alien.x
+	# 	alien.rect.y = alien_height + 2 * alien_height * row_number
+	# 	self.aliens.add(alien)
 
 	def _update_aliens(self):
 		"""Updates aliens' position."""
