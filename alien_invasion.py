@@ -1,3 +1,4 @@
+from hashlib import new
 import sys
 
 import pygame
@@ -5,6 +6,8 @@ import pygame
 from settings import Settings
 
 from ship import Ship
+
+from bullet import Bullet
 
 class AlienInvasion:
 	"""Class to control game resources and behavior."""
@@ -20,6 +23,8 @@ class AlienInvasion:
 		self.bg_color = (self.settings.bg_color)
 		self.ship = Ship(self)
 
+		self.bullets = pygame.sprite.Group()
+
 
 	def run_game(self):
 		"""Start the main game cycle."""
@@ -27,6 +32,7 @@ class AlienInvasion:
 			# Keyboard and mouse event tracking.
 			self._check_events()
 			self.ship.update()
+			self.bullets.update()
 			self._update_screen()
 			
 	
@@ -49,6 +55,8 @@ class AlienInvasion:
 			self.ship.moving_left = True
 		elif event.key == pygame.K_ESCAPE:
 			sys.exit()
+		elif event.key == pygame.K_SPACE:
+			self._fire_bullet()
 
 	def _check_keyup_events(self, event):
 		"""Respond to key release."""
@@ -62,8 +70,15 @@ class AlienInvasion:
 		# Fill the screen with a specific color
 		self.screen.fill(self.bg_color)
 		self.ship.blitme()
+		for bullet in self.bullets.sprites():
+			bullet.draw_bullet()
 		# Displays the last screen drawn.
 		pygame.display.flip()
+	
+	def _fire_bullet(self):
+		"""Creating a new bullet and adding its in group."""
+		new_bullet = Bullet(self)
+		self.bullets.add(new_bullet)
 
 if __name__ == '__main__':
 	ai = AlienInvasion()
