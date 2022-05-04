@@ -34,7 +34,7 @@ class AlienInvasion:
 			self.ship.update()
 			self.bullets.update()
 			self._update_screen()
-			
+			self._remove_bullet()
 	
 	def _check_events(self):
 		"""Handles keystrokes and mouse events."""
@@ -79,6 +79,12 @@ class AlienInvasion:
 		"""Creating a new bullet and adding its in group."""
 		new_bullet = Bullet(self)
 		self.bullets.add(new_bullet)
+	
+	def _remove_bullet(self):
+		for bullet in self.bullets.copy():
+			if bullet.rect.bottom <= 0:
+				self.bullets.remove(bullet)	
+
 
 if __name__ == '__main__':
 	ai = AlienInvasion()
