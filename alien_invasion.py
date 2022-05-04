@@ -32,9 +32,8 @@ class AlienInvasion:
 			# Keyboard and mouse event tracking.
 			self._check_events()
 			self.ship.update()
-			self.bullets.update()
+			self._update_bullets()
 			self._update_screen()
-			self._remove_bullet()
 	
 	def _check_events(self):
 		"""Handles keystrokes and mouse events."""
@@ -77,13 +76,18 @@ class AlienInvasion:
 	
 	def _fire_bullet(self):
 		"""Creating a new bullet and adding its in group."""
-		new_bullet = Bullet(self)
-		self.bullets.add(new_bullet)
+		if (len(self.bullets) < self.settings.bullets_allowed):
+			new_bullet = Bullet(self)
+			self.bullets.add(new_bullet)
 	
-	def _remove_bullet(self):
+	def _remove_bullets(self):
 		for bullet in self.bullets.copy():
 			if bullet.rect.bottom <= 0:
-				self.bullets.remove(bullet)	
+				self.bullets.remove(bullet)
+	
+	def _update_bullets(self):
+		self.bullets.update()
+		self._remove_bullets()
 
 
 if __name__ == '__main__':
