@@ -91,11 +91,13 @@ class AlienInvasion:
 			self.bullets.add(new_bullet)
 	
 	def _remove_bullets(self):
+		"""Removes bullets if they are above the screen."""
 		for bullet in self.bullets.copy():
 			if bullet.rect.bottom <= 0:
 				self.bullets.remove(bullet)
 	
 	def _update_bullets(self):
+		"""Updates projectile positions and destroys old projectiles."""
 		self.bullets.update()
 		self._remove_bullets()
 		# check for hits on aliens.
@@ -182,6 +184,7 @@ class AlienInvasion:
 		self.settings.fleet_direction *= -1
 
 	def _check_bullet_alien_collision(self):
+		"""Processing projectile-alien collisions."""
 		collision = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 		if not self.aliens:
 			self.bullets.empty()
@@ -195,6 +198,15 @@ class AlienInvasion:
 		self._create_fleet()
 		self.ship.center_ship()
 		sleep(0.5)
+	
+	def _check_aliens_bottom(self):
+		"""Checks to see if the aliens have reached the bottom edge of the screen."""
+		screen_rect = self.screen.get_rect()
+		for alien in self.aliens.sprites():
+			if alien.rect.bottom >= screen_rect.bottom:
+				self._ship_hit()
+				break
+
 
 
 if __name__ == '__main__':
