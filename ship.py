@@ -31,4 +31,9 @@ class Ship():
 		if self.moving_left and self.rect.left > self.screen_rect.left:
 			self.x -= self.settings.ship_speed
 		self.rect.x = self.x
+	
+	def center_ship(self):
+		"""Places the ship in the center of the bottom side."""
+		self.rect.midbottom = self.screen_rect.midbottom
+		self.x = float(self.rect.x)
 
