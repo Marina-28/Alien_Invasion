@@ -1,7 +1,6 @@
-from hashlib import new
-import imp
-import sys
 
+import sys
+from time import sleep
 import pygame
 
 from settings import Settings
@@ -11,6 +10,8 @@ from ship import Ship
 from bullet import Bullet
 
 from alien import Alien
+
+from game_stats import GameStats
 
 class AlienInvasion:
 	"""Class to control game resources and behavior."""
@@ -28,6 +29,8 @@ class AlienInvasion:
 
 		self.bullets = pygame.sprite.Group()
 		self.aliens = pygame.sprite.Group()
+
+		self.stats = GameStats(self)
 
 		self._create_fleet()
 
@@ -163,7 +166,7 @@ class AlienInvasion:
 		self._check_fleet_edges()
 		# Check contact alien with ship
 		if pygame.sprite.spritecollideany(self.ship, self.aliens):
-			print("ship hit!!!")
+			self._ship_hit()
 
 	def _check_fleet_edges(self):
 		"""Reacts when the alien reaches the edge of the screen."""
@@ -183,6 +186,15 @@ class AlienInvasion:
 		if not self.aliens:
 			self.bullets.empty()
 			self._create_fleet()
+	
+	def _ship_hit(self):
+		"""Handles the ship's collision with the alien."""
+		self.stats.ships_left -= 1
+		self.aliens.empty()
+		self.bullets.empty()
+		self._create_fleet()
+		self.ship.center_ship()
+		sleep(0.5)
 
 
 if __name__ == '__main__':
