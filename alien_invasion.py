@@ -142,7 +142,7 @@ class AlienInvasion:
 		alien_height = alien.rect.height
 		alien.x = 1 + 2 * alien_width * alien_number
 		alien.rect.x = alien.x
-		alien.rect.y = 10 + 2 * alien_height * row_number
+		alien.rect.y = 40 + 2 * alien_height * row_number
 		self.aliens.add(alien)
 
 	# def _create_fleet(self):
@@ -210,6 +210,8 @@ class AlienInvasion:
 			self.bullets.empty()
 			self._create_fleet()
 			self.settings.increase_speed()
+			self.stats.level += 1
+			self.sb.prep_level()
 	
 	def _ship_hit(self):
 		"""Handles the ship's collision with the alien."""
@@ -231,12 +233,14 @@ class AlienInvasion:
 			if alien.rect.bottom >= screen_rect.bottom:
 				self._ship_hit()
 				break
+
 	def _check_button(self, mouse_pos):
 		"""Starts a new game when you press Play."""
 		if self.button.rect.collidepoint(mouse_pos) and not self.stats.game_active:
 			self.settings.initialize_dynamic_settings()
 			self.stats.reset_stats()
 			self.sb.prep_score()
+			self.sb.prep_level()
 			self.stats.game_active = True
 			self.aliens.empty()
 			self.bullets.empty()

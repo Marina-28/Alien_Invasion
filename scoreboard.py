@@ -14,6 +14,7 @@ class Scoreboard():
 
         self.prep_score()
         self.prep_high_score()
+        self.prep_level()
     
     def prep_score(self):
         """Converts the current account into a graphical representation."""
@@ -24,7 +25,7 @@ class Scoreboard():
 
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
-        self.score_rect.top = 20
+        self.score_rect.bottom = 40
 
     def prep_high_score(self):
         """Converts the high score into a graphical representation."""
@@ -35,9 +36,20 @@ class Scoreboard():
 
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.left = 20
-        self.high_score_rect.top = 20
+        self.high_score_rect.bottom = 40
+    
+    def prep_level(self):
+        """Converts the level into a graphical representation."""
+        level_str = str(self.stats.level) + " LVL"
+        self.level_image = self.font.render(level_str, True,
+        self.text_color, self.settings.bg_color)
+
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.center = self.screen_rect.center
+        self.level_rect.bottom = 40
     
     def show_score(self):
         """Displays the score on the screen."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
+        self.screen.blit(self.level_image, self.level_rect)
