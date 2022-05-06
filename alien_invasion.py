@@ -215,8 +215,9 @@ class AlienInvasion:
 	
 	def _ship_hit(self):
 		"""Handles the ship's collision with the alien."""
-		if self.stats.ships_left > 1:
+		if self.stats.ships_left > 0:
 			self.stats.ships_left -= 1
+			self.sb.prep_lifes()
 			self.aliens.empty()
 			self.bullets.empty()
 			self._create_fleet()
@@ -241,6 +242,7 @@ class AlienInvasion:
 			self.stats.reset_stats()
 			self.sb.prep_score()
 			self.sb.prep_level()
+			self.sb.prep_lifes()
 			self.stats.game_active = True
 			self.aliens.empty()
 			self.bullets.empty()
