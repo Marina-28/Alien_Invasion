@@ -10,7 +10,7 @@ class Scoreboard():
         self.stats = ai_game.stats
 
         self.text_color = (30, 30, 30)
-        self.font = pygame.font.SysFont(None, 48)
+        self.font = pygame.font.SysFont(None, 36)
 
         self.prep_score()
         self.prep_high_score()
@@ -25,7 +25,7 @@ class Scoreboard():
 
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
-        self.score_rect.bottom = 40
+        self.score_rect.bottom = 25
 
     def prep_high_score(self):
         """Converts the high score into a graphical representation."""
@@ -36,7 +36,7 @@ class Scoreboard():
 
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.left = 20
-        self.high_score_rect.bottom = 40
+        self.high_score_rect.bottom = 25
     
     def prep_level(self):
         """Converts the level into a graphical representation."""
@@ -45,8 +45,8 @@ class Scoreboard():
         self.text_color, self.settings.bg_color)
 
         self.level_rect = self.level_image.get_rect()
-        self.level_rect.center = self.screen_rect.center
-        self.level_rect.bottom = 40
+        self.level_rect.right = self.screen_rect.right - 20
+        self.level_rect.bottom = 50
     
     def show_score(self):
         """Displays the score on the screen."""

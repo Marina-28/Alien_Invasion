@@ -142,7 +142,7 @@ class AlienInvasion:
 		alien_height = alien.rect.height
 		alien.x = 1 + 2 * alien_width * alien_number
 		alien.rect.x = alien.x
-		alien.rect.y = 40 + 2 * alien_height * row_number
+		alien.rect.y = 50 + 2 * alien_height * row_number
 		self.aliens.add(alien)
 
 	# def _create_fleet(self):
