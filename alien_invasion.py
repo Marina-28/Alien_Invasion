@@ -1,4 +1,3 @@
-
 import sys
 from time import sleep
 import pygame
@@ -14,6 +13,8 @@ from alien import Alien
 from game_stats import GameStats
 
 from button import Button
+
+from scoreboard import Scoreboard
 
 class AlienInvasion:
 	"""Class to control game resources and behavior."""
@@ -34,6 +35,7 @@ class AlienInvasion:
 
 		self.stats = GameStats(self)
 		self.button = Button(self, "start")
+		self.sb = Scoreboard(self)
 
 		self._create_fleet()
 
@@ -70,7 +72,7 @@ class AlienInvasion:
 			self.ship.moving_left = True
 		elif event.key == pygame.K_ESCAPE:
 			sys.exit()
-		elif event.key == pygame.K_SPACE:
+		elif event.key == pygame.K_SPACE and self.stats.game_active:
 			self._fire_bullet()
 
 	def _check_keyup_events(self, event):
@@ -88,7 +90,7 @@ class AlienInvasion:
 		for bullet in self.bullets.sprites():
 			bullet.draw_bullet()
 		self.aliens.draw(self.screen)
-
+		self.sb.show_score()
 		if self.stats.game_active == False:
 			self.button.draw_button()
 		# Displays the last screen drawn.
@@ -197,6 +199,10 @@ class AlienInvasion:
 	def _check_bullet_alien_collision(self):
 		"""Processing projectile-alien collisions."""
 		collision = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+		if collision:
+			for aliens in collision.values():
+				self.stats.score += self.settings.alien_points
+			self.sb.prep_score()
 		if not self.aliens:
 			self.bullets.empty()
 			self._create_fleet()
@@ -204,7 +210,7 @@ class AlienInvasion:
 	
 	def _ship_hit(self):
 		"""Handles the ship's collision with the alien."""
-		if self.stats.ships_left > 0:
+		if self.stats.ships_left > 1:
 			self.stats.ships_left -= 1
 			self.aliens.empty()
 			self.bullets.empty()
@@ -227,6 +233,7 @@ class AlienInvasion:
 		if self.button.rect.collidepoint(mouse_pos) and not self.stats.game_active:
 			self.settings.initialize_dynamic_settings()
 			self.stats.reset_stats()
+			self.sb.prep_score()
 			self.stats.game_active = True
 			self.aliens.empty()
 			self.bullets.empty()
