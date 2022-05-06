@@ -18,7 +18,7 @@ class Settings():
 
 		self.initialize_dynamic_settings()
 
-	def initialize_dynamic_settings():
+	def initialize_dynamic_settings(self):
 		"""Initializes dynamic settings."""
 		self.ship_speed_factor = 1.5
 		self.bullet_speed_factor = 3.0

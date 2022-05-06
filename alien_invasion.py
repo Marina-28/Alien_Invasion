@@ -225,6 +225,7 @@ class AlienInvasion:
 	def _check_button(self, mouse_pos):
 		"""Starts a new game when you press Play."""
 		if self.button.rect.collidepoint(mouse_pos) and not self.stats.game_active:
+			self.settings.initialize_dynamic_settings()
 			self.stats.reset_stats()
 			self.stats.game_active = True
 			self.aliens.empty()
