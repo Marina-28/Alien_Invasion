@@ -13,6 +13,8 @@ from alien import Alien
 
 from game_stats import GameStats
 
+from button import Button
+
 class AlienInvasion:
 	"""Class to control game resources and behavior."""
 	
@@ -31,6 +33,7 @@ class AlienInvasion:
 		self.aliens = pygame.sprite.Group()
 
 		self.stats = GameStats(self)
+		self.button = Button(self, "start")
 
 		self._create_fleet()
 
@@ -81,6 +84,9 @@ class AlienInvasion:
 		for bullet in self.bullets.sprites():
 			bullet.draw_bullet()
 		self.aliens.draw(self.screen)
+
+		if self.stats.game_active == False:
+			self.button.draw_button()
 		# Displays the last screen drawn.
 		pygame.display.flip()
 	
