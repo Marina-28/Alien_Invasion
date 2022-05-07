@@ -20,7 +20,7 @@ class Scoreboard():
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
-        self.prep_lifes()
+        self.prep_lives()
     
     def prep_score(self):
         """Converts the current account into a graphical representation."""
@@ -54,18 +54,18 @@ class Scoreboard():
         self.level_rect.right = self.screen_rect.right - 20
         self.level_rect.bottom = 50
     
-    def prep_lifes(self):
+    def prep_lives(self):
         """Display numb of ships on the screen."""
-        self.lifes = Group()
+        self.lives = Group()
         for life_numb in range(self.stats.ships_left):
             s = Life(self.ai_game)
             s.rect.x = 530 + life_numb * s.rect.width
             s.rect.y = 10
-            self.lifes.add(s)
+            self.lives.add(s)
 
     def show_score(self):
         """Displays the score on the screen."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
-        self.lifes.draw(self.screen)
+        self.lives.draw(self.screen)
