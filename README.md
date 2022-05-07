@@ -1,4 +1,3 @@
-# Alien_invasion
 ## Implementation of game "Alien Invasion".
 ## Main features:
 * A player *ship* that can move (<-/->), shoot *bullets* (space), and destroy aliens.
