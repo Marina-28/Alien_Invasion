@@ -10,5 +10,5 @@
     * Number of lives left
 * The game starts by clicking the "Start" button with the mouse.
 * Exit with ESQ and :x:
-### Screenshot:
+
 ![screen](https://github.com/Marina-28/alien_invasion/blob/master/images/Screen.png)
