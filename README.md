@@ -1,1 +1,3 @@
+# Alien_invasion
+## implementation of game "Alien Invasion".
 ![screen](https://github.com/Marina-28/alien_invasion/blob/master/images/Screen.png)
