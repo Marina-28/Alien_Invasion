@@ -8,4 +8,5 @@
     * Highest score
     * Current level
     * Number of lives left
+### Screenshot:
 ![screen](https://github.com/Marina-28/alien_invasion/blob/master/images/Screen.png)
