@@ -2,7 +2,7 @@
 ## Main features:
 * A player *ship* that can move (<-/->), shoot *bullets* (space), and destroy aliens.
 * A *fleet of aliens* that can move. Their speed increases with the level of the player.
-* *Info board*: Cancel changes
+* *Info board*:
     * Current score
     * Highest score
     * Current level
